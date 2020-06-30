@@ -7,18 +7,29 @@ var astar;
 var markerStart;
 var markerGoal;
 
+var config = {
+    map1: { map: 'map1.json', start: [0, 0], goal: [4, 4] }, 
+    map2: { map: 'map2.json', start: [0, 0], goal: [11, 4] }, 
+    map3: { map: 'map3.json', start: [0, 0], goal: [3, 5] },
+    map4: { map: 'map4.json', start: [0, 0], goal: [30, 5] }
+}
+
+var curConfig = 'map4';
+
 function preload() {
-    loadJSON('map2.json', (data) => mapGrid = data);
+    loadJSON('../astar/' + config[curConfig].map, (data) => mapGrid = data);
 }
 
 
 function setup() {
-    createCanvas(1200, 1080);
-    var size = 700;
+    createCanvas(1200, 900);
+    var size = 750;
+
+    var mapConfig = config[curConfig];
 
     // x, y
-    var start = [0, 0];
-    var goal = [13, 13];
+    var start = mapConfig.start;
+    var goal = mapConfig.goal;
     
     var margin = 100;
     var cellSize = (size-margin) / mapGrid.length;
@@ -43,6 +54,10 @@ function mousePressed() {
 
 function draw() {
     background(0);
+
+    if (frameCount % 1 == 0 && !astar.goalCell) {
+        astar.next();
+    }
 
     translate(400, 100);
 
@@ -80,15 +95,15 @@ function draw() {
         }
         circle(canvaX, canvaY, 10);
 
-        textSize(int(astar.cellSize/4));
-        text(cell.g, 
-            cell.x * astar.cellSize + astar.cellSize - int(astar.cellSize/4) - 5, 
-            cell.y * astar.cellSize + astar.cellSize - int(astar.cellSize/4));
+        // textSize(int(astar.cellSize/4));
+        // text(cell.g, 
+        //     cell.x * astar.cellSize + astar.cellSize - int(astar.cellSize/4) - 5, 
+        //     cell.y * astar.cellSize + astar.cellSize - int(astar.cellSize/4));
 
-        // f
-        text(int(cell.f), 
-            cell.x * astar.cellSize + astar.cellSize - int(astar.cellSize/4) - 50, 
-            cell.y * astar.cellSize + astar.cellSize - int(astar.cellSize/4));
+        // // f
+        // text(int(cell.f), 
+        //     cell.x * astar.cellSize + astar.cellSize - int(astar.cellSize/4) - 50, 
+        //     cell.y * astar.cellSize + astar.cellSize - int(astar.cellSize/4));
 
         pop();    
     });

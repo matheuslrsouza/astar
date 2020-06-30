@@ -61,15 +61,7 @@ function draw() {
 
     if (slide == 3) {
         image(map1, width - newImgWidth, 50, newImgWidth, newImgHeight);
-        push();
-        stroke(146, 100, 255);
-        strokeWeight(5);
-        for (let i = 0; i < route.length-1; i++) {
-            const c = route[i];
-            const c2 = route[i+1];
-            line(c[0], c[1], c2[0], c2[1]);
-        }
-        pop();
+        renderRoute(route);
     }
 
     start.draw();
@@ -81,17 +73,21 @@ function draw() {
 function _drawTexts() {
     push();
     noStroke();
-    textSize(40);
+    
 
     var x = 50;
 
-    fill(slide == 1 && start.onPlace ? 255 : 50);
+    textFont('Rockwell');
+    textSize(slide == 1 && start.onPlace ? 60 : 40);
+    fill(slide == 1 && start.onPlace ? [255, 222, 89] : 50);
     text('Localização', x, 100);
 
-    fill(slide == 2 && end.onPlace ? 255 : 50);
+    textSize(slide == 2 && end.onPlace ? 60 : 40);
+    fill(slide == 2 && end.onPlace ? [255, 222, 89] : 50);
     text('Destino', x, 250);
 
-    fill(slide == 3 ? 255 : 50);
+    textSize(slide == 3 ? 60 : 40);
+    fill(slide == 3 ? [255, 222, 89] : 50);
     text('Mapa', x, 400);
     pop();
 }
@@ -108,88 +104,4 @@ function keyPressed() {
     if (keyCode === LEFT_ARROW) {
         slide--;
     }
-}
-
-class Marker {
-
-    constructor(pos, isStart) {
-        this.pos = createVector(pos.x, -100);
-        this.endPos = pos;
-        this.vel = createVector(0, 0);
-        this.acc = createVector(0, 2);
-
-        this.radius = 30;
-        this.isStart = isStart;
-
-        this.visible = false;
-        this.onPlace = false;
-
-        this.target = 80;
-        this.currentRadius = 30;
-    }
-
-    show() {
-        this.visible = true;
-    }
-
-    draw() {        
-       
-
-        if (this.pos.dist(this.endPos) <= 20) {
-            this.visible = false;
-            this.pos = this.endPos;
-            this.onPlace = true;
-        }
-
-        if (this.visible) {
-            this.vel.add(this.acc);
-            this.pos.add(this.vel);
-        }
-
-        push();
-        translate(this.pos.x, this.pos.y - 40);
-
-        if (this.onPlace) {
-            noStroke();
-            if (this.isStart) {
-                fill(105, 204, 17, 100);                
-            } else {
-                fill(238, 52, 70, 100);
-            }
-            circle(0, 0, this.currentRadius);
-
-            this.currentRadius += 1;
-
-            if (this.currentRadius >= this.target) {
-                this.currentRadius = 30;
-            }
-        }
-        
-        scale(0.5);
-
-
-        strokeWeight(7);
-
-        if (this.isStart) {
-            stroke(81, 130, 37);
-        } else {
-            stroke(73, 67, 66);
-        }
-
-        line(0, this.radius / 2, 0, 80);
-
-        // green
-        if (this.isStart) {
-            fill(105, 204, 17);
-            stroke(81, 130, 37);
-        } else {
-            fill(238, 52, 70);
-            stroke(173, 41, 67);
-        }
-
-        circle(0, 0, this.radius);
-
-        pop();
-    }
-
 }

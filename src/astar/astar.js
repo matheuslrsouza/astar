@@ -1,4 +1,4 @@
-/// <reference path="node_modules/@types/p5/global.d.ts" />
+/// <reference path="../../node_modules/@types/p5/global.d.ts" />
 
 class AStar {
     
@@ -22,10 +22,10 @@ class AStar {
         this.closed[this.start[0]][this.start[1]] = 1;
 
         while (open.length > 0) {
-            // sort in descendentin order
+            // sort in descending order
             open.sort((a, b) => b.g - a.g);
 
-            var next = open.pop();            
+            var next = open.pop();
 
             if (next.x == this.goal[1] && next.y == this.goal[0]) {
                 //alert('chegou');
