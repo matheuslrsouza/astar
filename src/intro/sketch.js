@@ -6,9 +6,9 @@ function preload() {
     img = loadImage('../../assets/logo.png');
 }
 
-var size = 550;
+var imgSize = 550;
 function setup() {
-    createCanvas(size, size);
+    createCanvas(1920, 1080);
 }
 
 var theta = 0;
@@ -19,10 +19,8 @@ var touchedPiOverTwoCount = 0;
 
 function draw() {
     background(0);
-
-    scale(.6);
-    translate(width/2-100, height/2+80);
-    image(img, 0, 0, size, size);
+    
+    image(img, (width - imgSize) / 2, (height - imgSize) / 2, imgSize, imgSize);
 
     var radius = 200;
     translate(width/2, height/2 + 25);
@@ -72,8 +70,6 @@ function draw() {
     pop();
 
     var lineLength = radius + 25;
-    var x = cos(theta) * lineLength;
-    var y = sin(theta) * lineLength;
 
     push();
     strokeWeight(15);
@@ -82,23 +78,8 @@ function draw() {
     rotate(theta);
     line(lineLength, 0, lineLength -20, -20);
     line(0, 0, lineLength, 0);
-    line(lineLength, 0, lineLength -20, 20);
-    // beginShape();
+    line(lineLength, 0, lineLength -20, 20);+
 
-    // stroke(253, 2, 157);
-    // strokeWeight(10);
-    
-    // rotate(theta);
-
-    // vertex(0, 0);
-    // vertex(lineLength, 0);
-    // vertex(lineLength - 15, -20);
-    // vertex(lineLength, 0);
-    // vertex(lineLength - 15, 20);
-    // vertex(lineLength, 0);
-    // vertex(0, 0);
-
-    // endShape();
     pop();
 
     if (theta > -PI/2) {

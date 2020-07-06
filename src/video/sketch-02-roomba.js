@@ -14,26 +14,27 @@ var end;
 
 var slide = 0;
 
-var fitY = 0;
+var fitY = 135;
+var fitX = -125;
 
 var routes = {
     route1: [
-        [1000, 400+fitY], 
-        [1000, 504],
-        [868, 504],
-        [868, 564]
+        [1000+fitX, 400+fitY], 
+        [1000+fitX, 550+fitY],
+        [848+fitX, 550+fitY],
+        [848+fitX, 650+fitY]
     ],
     route2: [
-        [750, 200+fitY], 
-        [735, 200+fitY],
-        [735, 270+fitY],
-        [868, 270+fitY],
-        [868, 564+fitY]
+        [700+fitX, 150+fitY], 
+        [735+fitX, 190+fitY],
+        [735+fitX, 270+fitY],
+        [848+fitX, 270+fitY],
+        [848+fitX, 650+fitY]
     ], 
     route3: [
-        [737, 433+fitY], 
-        [868, 521+fitY], 
-        [868, 564+fitY]
+        [800+fitX, 433+fitY], 
+        [848+fitX, 521+fitY], 
+        [848+fitX, 650+fitY]
     ]
 };
 
@@ -49,16 +50,17 @@ function setup() {
     var imgWidth = 1125;
     var imgHeight = 1317;
 
-    newImgWidth = 550;
+    newImgWidth = 750;
     newImgHeight = newImgWidth / imgWidth * imgHeight;
-    createCanvas(1200, 800);
+    createCanvas(1600, 900);
 }
 
 function draw() {
     background(0);
 
     push();
-    image(map1, width - newImgWidth, 0, newImgWidth, newImgHeight);    
+    translate((width - newImgWidth) / 2, (height - newImgHeight) / 2);
+    image(map1, 0, 0, newImgWidth, newImgHeight);    
     pop();
 
     var route = slide == 1 ? routes.route1 : 
