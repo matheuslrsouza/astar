@@ -34,8 +34,7 @@ function setup() {
     var start = mapConfig.start;
     var goal = mapConfig.goal;
     
-    var margin = 0;
-    var cellSize = (size-margin) / mapGrid.length;
+    var cellSize = size / mapGrid.length;
 
     astar = new AStarInteractive(mapGrid, start, goal, cellSize, true);
 
