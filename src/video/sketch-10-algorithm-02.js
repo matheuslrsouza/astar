@@ -8,13 +8,10 @@ var markerStart;
 var markerGoal;
 
 var config = {
-    map1: { map: 'map1.json', start: [0, 0], goal: [4, 4] }, 
-    map2: { map: 'map2.json', start: [0, 0], goal: [11, 4] }, 
-    map3: { map: 'map3.json', start: [0, 0], goal: [3, 5] },
-    map4: { map: 'map4.json', start: [0, 0], goal: [30, 5] }
+    map5: { map: 'map5.json', start: [0, 0], goal: [4, 5] }
 }
 
-var curConfig = 'map4';
+var curConfig = 'map5';
 
 var fontRockwellBold;
 
@@ -25,6 +22,11 @@ function preload() {
 }
 
 var size = 700;
+
+var current;
+
+var slide = 0;
+
 function setup() {
     createCanvas(1600, 900);
 
@@ -36,7 +38,9 @@ function setup() {
     
     var cellSize = size / mapGrid.length;
 
-    astar = new AStarInteractive(mapGrid, start, goal, cellSize, true);
+    astar = new AStarInteractive(mapGrid, start, goal, cellSize, false);
+
+    current = new Current(getPixelByCell(start[0], start[1]), 30, 10);
 
     markerStart = new Marker(getPixelByCell(start[0], start[1]), true);
     markerStart.show();
@@ -52,52 +56,62 @@ function setup() {
 
 function mousePressed() {
     astar.next();
+    current.moveTo(getPixelByCell(astar.current.x, astar.current.y));    
+}
+
+function keyPressed() {
+    if (keyCode === RIGHT_ARROW) {
+        slide++;
+    }
+
+    if (keyCode === LEFT_ARROW) {
+        slide--;
+    }
 }
 
 function draw() {
     background(0);
 
-    if (frameCount % 2 == 0 && !astar.goalCell) {
-        astar.next();
-    }
-
-    _drawTexts();
-
-    translate((width - size) / 2, 150);
+    translate((width - size) / 2, 100);
 
     renderers.forEach(renderer => {
-        renderer.render();
+        if (renderer instanceof DirectionsRenderer) {
+            if (current.endPos == current.pos) {
+                renderer.render();
+            }
+        } else {
+            renderer.render();
+        }
     });
 
-    // current
-    var canvaX = astar.current.x * astar.cellSize + astar.cellSize / 2;
-    var canvaY = astar.current.y * astar.cellSize + astar.cellSize / 2;
-    push();
-    stroke([140, 140, 236, 150]);
-    strokeWeight(5);
-    fill(colors.current.fill);
-    noFill();
-    circle(canvaX, canvaY, 20);
-    pop();
+    current.draw();
 
     astar.cells.forEach((cell) => {
         var canvaX = cell.x * astar.cellSize + astar.cellSize / 2;
         var canvaY = cell.y * astar.cellSize + astar.cellSize / 2;
 
         push();
-        if (cell.expanded) {
-            fill(colors.cost.expanded);
-        } else {
-            fill(255);
-        }
-        circle(canvaX, canvaY, 10);
+        // if (cell.expanded) {
+        //     fill(colors.cost.expanded);
+        // } else {
+        //     fill(255);
+        // }
+        // circle(canvaX, canvaY, 10);
+
+        stroke(255);
+        strokeWeight(2);
+        fill(255);
+        textSize(int(astar.cellSize/4));
+        text(cell.g, 
+            cell.x * astar.cellSize + astar.cellSize - int(astar.cellSize/4) - 5, 
+            cell.y * astar.cellSize + astar.cellSize - int(astar.cellSize/4));
 
         pop();    
     });
 
     // on complete
 
-    if (astar.goalCell) {
+    if (astar.goalCell && slide == 1) {
         push();
         stroke(0, 255, 0, 200);
         strokeWeight(8);

@@ -55,11 +55,15 @@ class AStarInteractive {
                 actions.forEach((action) => {
                     var x2 = next.x + action[0];
                     var y2 = next.y + action[1];
-                    // com um valor maior se comporta melhor
-                    var g2 = next.g + this.cellSize/3.5;                    
+                    var g2 = 0;
+                    if (this.aStarEnabled) {
+                        // com um valor balanceado se comporta melhor
+                        g2 = next.g + this.cellSize/3.5;                                
+                    } else {
+                        g2 = next.g + 1;
+                    }
 
-                    if (x2 >= 0 && x2 < this.grid.length && y2 >= 0 && y2 < this.grid.length) {
-                        
+                    if (y2 >= 0 && y2 < this.grid.length && x2 >= 0 && x2 < this.grid[0].length) {
                         if (this.grid[y2][x2] == 0 && this.closed[y2][x2] == 0) {
 
                             var centerGoalX = this.goal[0] * this.cellSize + this.cellSize / 2;
@@ -89,7 +93,7 @@ class AStarInteractive {
                             var canvaX = centerX + (x2 - next.x) * this.cellSize / 4;
                             var canvaY = centerY + (y2 - next.y) * this.cellSize / 4;
 
-                            this.allowedActions.push(new Arrow(canvaX, canvaY, theta, 0.5, colors.arrow.fill));
+                            this.allowedActions.push(new Arrow(canvaX, canvaY, theta, 0.8, colors.arrow.fill));
                         }
 
                     }
