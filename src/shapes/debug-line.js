@@ -1,16 +1,16 @@
-class Current {
+class DebugLine {
 
-    constructor(pos, size, sw) {
+    constructor(pos, width, height) {
         this.pos = pos;
         this.endPos = pos;
-        this.size = size;
-        this.strokeWeight = sw;
+        
+        this.width = width;
+        this.height = height;
 
         this.vel = createVector(0, 0);
         this.acc = createVector(0, 0);
 
         this.moving = false;
-        this.expandeds = [];
     }
 
     moveTo(newPoint) {
@@ -18,16 +18,15 @@ class Current {
         var newHeading = p5.Vector.sub(newPoint, this.pos);
 
         this.vel.mult(0);
-        this.acc = p5.Vector.fromAngle(newHeading.heading(), 5);
+        this.acc = p5.Vector.fromAngle(newHeading.heading(), 1);
         this.moving = true;
     }
 
     draw() {
         // checks if is on place
-        if (this.pos.dist(this.endPos) <= 40 && this.moving) {
+        if (this.pos.dist(this.endPos) <= 10 && this.moving) {
             this.moving = false;
             this.pos = this.endPos;
-            this.expandeds.push(this.endPos.copy());
         } else if (this.moving) {
             // moving the place
             this.vel.add(this.acc);
@@ -35,11 +34,11 @@ class Current {
         }
 
         push();
-        stroke([140, 140, 236, 150]);
-        strokeWeight(this.strokeWeight);
-        fill(colors.current.fill);
-        noFill();
-        circle(this.pos.x, this.pos.y, this.size);
+        strokeWeight(1);
+        stroke(0 , 255, 0);
+        // noStroke();
+        fill(0, 255, 0, 50);
+        rect(this.pos.x, this.pos.y, this.width, this.height);
         pop();
     }
 }

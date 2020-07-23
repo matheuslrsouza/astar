@@ -87,25 +87,6 @@ function keyPressed() {
     }
 }
 
-function _testSpot() {
-    // let init = getPixelByCell(0, 0);
-    // let radius = 50;
-    // let range = 5;
-
-    // push();
-    // noStroke();
-    // for (let x = 0; x < width; x+=range) {
-    //     for (let y = 0; y < height; y+=range) {
-    //         let distFromCenter = dist(init.x, init.y, x, y);
-    //         if (distFromCenter > radius) {
-    //             fill(255, 0, 0, 200);
-    //             rect(x, y, range, range);
-    //         }
-    //     }
-    // }
-    // pop();    
-}
-
 function draw() {
     background(0);
 

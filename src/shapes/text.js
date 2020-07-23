@@ -16,16 +16,16 @@ class ItemText {
     render() {
 
         if (this.visible && this.alpha < 255) {
-            this.alpha += 2;
+            this.alpha += 0.5;
         }
 
         push();
         noStroke();
         
         let colorWithAlpha = this.color.concat(this.alpha);
-        var txtSize = 40;
+        var txtSize = 30;
 
-        textFont(fontRockwellBold);
+        //textFont(fontRockwellBold);
         textSize(txtSize);
         fill(colorWithAlpha);
         text(this.text, this.x, this.y);

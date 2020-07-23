@@ -11,12 +11,15 @@ var config = {
     map1: { map: 'map1.json', start: [0, 0], goal: [4, 4] }, 
     map2: { map: 'map2.json', start: [0, 0], goal: [11, 4] }, 
     map3: { map: 'map3.json', start: [0, 0], goal: [3, 5] },
-    map4: { map: 'map4.json', start: [0, 0], goal: [30, 5] }
+    map4: { map: 'map4.json', start: [0, 0], goal: [30, 5] },
+    map6: { map: 'map6.json', start: [0, 0], goal: [29, 2] }
 }
 
-var curConfig = 'map4';
+var curConfig = 'map2';
 
 var fontRockwellBold;
+
+var current;
 
 function preload() {
     loadJSON('../astar/' + config[curConfig].map, (data) => mapGrid = data);
@@ -36,7 +39,9 @@ function setup() {
     
     var cellSize = size / mapGrid.length;
 
-    astar = new AStarInteractive(mapGrid, start, goal, cellSize, true);
+    astar = new AStarInteractive(mapGrid, start, goal, cellSize, false);
+
+    current = new Current(getPixelByCell(start[0], start[1]), 20, 5);
 
     markerStart = new Marker(getPixelByCell(start[0], start[1]), true);
     markerStart.show();
@@ -51,34 +56,43 @@ function setup() {
 }
 
 function mousePressed() {
-    astar.next();
+    astar.next();    
 }
 
 function draw() {
     background(0);
 
-    if (frameCount % 2 == 0 && !astar.goalCell) {
+    if (frameCount % 9 == 0 && !astar.goalCell) {
         astar.next();
+        current.moveTo(getPixelByCell(astar.current.x, astar.current.y));
     }
 
-    _drawTexts();
+    //_drawTexts();
 
-    translate((width - size) / 2, 150);
+    translate((width - size) / 2, 100);
 
     renderers.forEach(renderer => {
-        renderer.render();
+        if (renderer instanceof DirectionsRenderer) {
+            if (current.endPos == current.pos) {
+                renderer.render();
+            }
+        } else {
+            renderer.render();
+        }
     });
 
     // current
-    var canvaX = astar.current.x * astar.cellSize + astar.cellSize / 2;
-    var canvaY = astar.current.y * astar.cellSize + astar.cellSize / 2;
-    push();
-    stroke([140, 140, 236, 150]);
-    strokeWeight(5);
-    fill(colors.current.fill);
-    noFill();
-    circle(canvaX, canvaY, 20);
-    pop();
+    // var canvaX = astar.current.x * astar.cellSize + astar.cellSize / 2;
+    // var canvaY = astar.current.y * astar.cellSize + astar.cellSize / 2;
+    // push();
+    // stroke([140, 140, 236, 150]);
+    // strokeWeight(5);
+    // fill(colors.current.fill);
+    // noFill();
+    // circle(canvaX, canvaY, 20);
+    // pop();
+
+    current.draw();
 
     astar.cells.forEach((cell) => {
         var canvaX = cell.x * astar.cellSize + astar.cellSize / 2;
