@@ -8,7 +8,7 @@ var markerStart;
 var markerGoal;
 
 var config = {
-    map5: { map: 'map5.json', start: [0, 0], goal: [4, 5] }
+    map5: { map: 'map5-1.json', start: [0, 0], goal: [4, 4] }
 }
 
 var imgEquations = {file: '', width: 950, height: 482};
@@ -45,7 +45,7 @@ function setup() {
 
     astar = new AStarInteractive(mapGrid, start, goal, cellSize, true, heuristic);
 
-    current = new Current(getPixelByCell(start[0], start[1]), 40, 10);
+    current = new Current(getPixelByCell(start[0], start[1]), 30, 10);
 
     markerStart = new Marker(getPixelByCell(start[0], start[1]), true);
     markerStart.show();
@@ -103,9 +103,7 @@ function keyPressed() {
     if (slide == 8) {
         overlays[2].hide();
     }
-
-
-    if (slide == 10) {
+    if (slide == 9) {
         // move to the last region
         let space = width / 3;
         heuristicShape.moveTo(createVector(space, 0));
@@ -137,7 +135,7 @@ function draw() {
 
     translate(space * region, 200);
 
-    if (slide >= 10 && !heuristicShape.moving) {
+    if (slide >= 9 && !heuristicShape.moving) {
         renderers.forEach(renderer => {
             if (renderer instanceof DirectionsRenderer) {
                 if (current.endPos == current.pos) {
@@ -161,7 +159,18 @@ function draw() {
             } else {
                 fill(255);
             }
-            circle(canvaX, canvaY, 20);
+            circle(canvaX, canvaY, 15);
+
+            if (cell.f > 0) {
+                textSize(20);
+                let y = canvaY + 40;
+                fill(255, 241, 84);
+                text(cell.f + ' = ', cell.f < 10 ? canvaX-40 : canvaX-50, y);
+                fill(255);
+                text(cell.g + ' + ', canvaX-8, y);
+                fill(245, 153, 153);
+                text(cell.h, canvaX + 24, y);
+            }
 
             pop();    
         });

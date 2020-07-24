@@ -16,7 +16,7 @@ class ItemText {
     render() {
 
         if (this.visible && this.alpha < 255) {
-            this.alpha += 0.5;
+            this.alpha += 2;
         }
 
         push();

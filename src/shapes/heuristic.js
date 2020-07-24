@@ -35,7 +35,7 @@ class Heuristic {
         }
 
         if (this.showAll && this.showingNumbersUntil < this.maxValueH) {
-            if (frameCount % 30 == 0) {
+            if (frameCount % 20 == 0) {
                 this.showingNumbersUntil++;
                 this.numbers[this.showingNumbersUntil].show();
             }
@@ -57,11 +57,12 @@ class Heuristic {
                         }
                         return el.x == x && el.y == y;
                     });
+                    noFill();
                     if (hl) {
                         hl.frames += 1;
-                        fill(0, 255, 0, 30);
-                    } else {
-                        noFill();
+                        if (hl.frames % 10 == 0) {
+                            fill(0, 255, 0, 200);
+                        }
                     }
                 } else {
                     noFill();

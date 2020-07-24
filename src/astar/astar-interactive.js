@@ -10,12 +10,10 @@ class AStarInteractive {
         this.aStarEnabled = aStarEnabled;
         this.h = h;
 
-        console.log(this.h);
-
         this.closed = Array.from(
             new Array(grid.length), () => new Array(grid[0].length).fill(0));
 
-        var cell = new Cell(0, 0, this.start[0], this.start[1]);
+        var cell = new Cell(0, 0, 0, this.start[0], this.start[1]);
         this.open = [cell];
         this.closed[this.start[0]][this.start[1]] = 1;
         this.allowedActions = [];
@@ -92,7 +90,7 @@ class AStarInteractive {
 
                         var f2 = g2 + hValue;
 
-                        var cell = new Cell(f2, g2, x2, y2);
+                        var cell = new Cell(f2, g2, hValue, x2, y2);
                         cell.previous = this.current;
 
                         this.open.push(cell);
@@ -202,9 +200,10 @@ class AStarInteractive {
 }
 
 class Cell {
-    constructor(f, g, x, y) {
+    constructor(f, g, h, x, y) {
         this.f = f;
         this.g = g;
+        this.h = h;
         this.x = x;
         this.y = y;
         this.expanded = false;
