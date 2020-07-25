@@ -15,8 +15,10 @@ class Heuristic {
         this.showAll = false;
         this.numbers = new Array(this.maxValueH);
         this.highlightings = [];
+        this.title = new ItemText('Função Heurística', 0, -20, [229, 129, 131, 200]);
+        this.title.show();
 
-        heuristic.forEach((row) => {        
+        heuristic.forEach((row) => {
             row.forEach((value) => {
                 this.numbers[value] = new ItemText(value, 0, 0, [255]);
             });
@@ -24,6 +26,9 @@ class Heuristic {
     }
 
     draw() {
+        this.title.render();
+        this.title.x = this.pos.x;
+        
         // checks if is on place
         if (this.pos.dist(this.endPos) <= 10 && this.moving) {
             this.moving = false;
@@ -60,9 +65,7 @@ class Heuristic {
                     noFill();
                     if (hl) {
                         hl.frames += 1;
-                        if (hl.frames % 10 == 0) {
-                            fill(0, 255, 0, 200);
-                        }
+                        fill(229, 129, 131, 200);
                     }
                 } else {
                     noFill();

@@ -15,7 +15,7 @@ var config = {
     map6: { map: 'map6.json', start: [0, 0], goal: [29, 2] }
 }
 
-var curConfig = 'map2';
+var curConfig = 'map4';
 
 var fontRockwellBold;
 
@@ -39,7 +39,7 @@ function setup() {
     
     var cellSize = size / mapGrid.length;
 
-    astar = new AStarInteractive(mapGrid, start, goal, cellSize, false);
+    astar = new AStarInteractive(mapGrid, start, goal, cellSize, true);
 
     current = new Current(getPixelByCell(start[0], start[1]), 20, 5);
 
@@ -62,7 +62,7 @@ function mousePressed() {
 function draw() {
     background(0);
 
-    if (frameCount % 9 == 0 && !astar.goalCell) {
+    if (frameCount % 2 == 0 && !astar.goalCell) {
         astar.next();
         current.moveTo(getPixelByCell(astar.current.x, astar.current.y));
     }

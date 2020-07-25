@@ -10,6 +10,15 @@ class AStarInteractive {
         this.aStarEnabled = aStarEnabled;
         this.h = h;
 
+        this.centerGoal = this.getPixelByCell(this.goal[0], this.goal[1]);
+
+        // [0, 0]
+        let p1 = this.getPixelByCell(0, 0);
+        // right bottom corner
+        let p2 = this.getPixelByCell(grid.length, grid[0].length);
+        this.maxDistance = p1.dist(p2);
+        this.maxCost = grid.length + grid[0].length;
+
         this.closed = Array.from(
             new Array(grid.length), () => new Array(grid[0].length).fill(0));
 
@@ -67,15 +76,13 @@ class AStarInteractive {
                 if (this.aStarEnabled && !this.h) {
                     // com um valor balanceado se comporta melhor                    
                     g2 = this.current.g + this.cellSize/3.5;
+                    //g2 = (this.current.g + 1) / this.maxCost;
                 } else {
                     g2 = this.current.g + 1;
                 }
 
                 if (y2 >= 0 && y2 < this.grid.length && x2 >= 0 && x2 < this.grid[0].length) {
                     if (this.grid[y2][x2] == 0 && this.closed[y2][x2] == 0) {
-
-                        var centerGoalX = this.goal[0] * this.cellSize + this.cellSize / 2;
-                        var centerGoalY = this.goal[1] * this.cellSize + this.cellSize / 2;
 
                         var canvaX2 = x2 * this.cellSize + this.cellSize / 2;
                         var canvaY2 = y2 * this.cellSize + this.cellSize / 2;
@@ -85,7 +92,8 @@ class AStarInteractive {
                         if (this.h) {
                             hValue = this.h[y2][x2];
                         } else {
-                            hValue = dist(canvaX2, canvaY2, centerGoalX, centerGoalY);
+                            hValue = dist(canvaX2, canvaY2, 
+                                this.centerGoal.x, this.centerGoal.y);
                         }
 
                         var f2 = g2 + hValue;
@@ -196,6 +204,13 @@ class AStarInteractive {
             // }
         }
 
+    }
+
+    getPixelByCell(x, y) {
+        return createVector(
+            x * this.cellSize + this.cellSize / 2, 
+            y * this.cellSize + this.cellSize / 2
+        );
     }
 }
 
