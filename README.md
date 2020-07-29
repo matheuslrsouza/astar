@@ -3,7 +3,7 @@
 Esse projeto foi utilizado para criar as animações utilizadas nesse vídeo https://bit.ly/astar-al
 <br/>Assista o vídeo para entender o funcionamento. 
 
-<a href="bit.ly/astar-al" target="_blank">
+<a href="https://bit.ly/astar-al" target="_blank">
   <img src="assets/miniature.png" width="400px">
 </a>
 <br/>
