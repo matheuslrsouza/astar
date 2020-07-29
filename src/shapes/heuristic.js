@@ -1,11 +1,12 @@
 class Heuristic {
 
-    constructor(heuristic, cellSize, maxValueH) {
+    constructor(heuristic, cellSize, maxValueH, showTitle = true) {
         this.heuristic = heuristic;
         this.pos = createVector(0, 0);
         this.endPos = this.pos;
         this.cellSize = cellSize;
         this.maxValueH = maxValueH;
+        this.showTitle = showTitle;
 
         this.vel = createVector(0, 0);
         this.acc = createVector(0, 0);
@@ -26,8 +27,10 @@ class Heuristic {
     }
 
     draw() {
-        this.title.render();
-        this.title.x = this.pos.x;
+        if (this.showTitle) {
+            this.title.render();
+            this.title.x = this.pos.x;
+        }
         
         // checks if is on place
         if (this.pos.dist(this.endPos) <= 10 && this.moving) {
@@ -50,10 +53,10 @@ class Heuristic {
         
             row.forEach((value, x) => {
                 push();
-                var xCorner = this.pos.x + x * astar.cellSize;
-                var yCorner = this.pos.y + y * astar.cellSize;
-                var canvaX = xCorner + astar.cellSize - astar.cellSize / 2-7;
-                var canvaY = yCorner + astar.cellSize - astar.cellSize / 3;
+                var xCorner = this.pos.x + x * this.cellSize;
+                var yCorner = this.pos.y + y * this.cellSize;
+                var canvaX = xCorner + this.cellSize - this.cellSize / 2-7;
+                var canvaY = yCorner + this.cellSize - this.cellSize / 3;
 
                 if (this.highlightings.length > 0) {
                     const hl = this.highlightings.find((el, i) => {
@@ -72,7 +75,7 @@ class Heuristic {
                 }
     
                 stroke(255, 255, 255, 30);
-                rect(xCorner, yCorner, astar.cellSize, astar.cellSize);
+                rect(xCorner, yCorner, this.cellSize, this.cellSize);
     
                 this.numbers[value].x = canvaX;
                 this.numbers[value].y = canvaY;

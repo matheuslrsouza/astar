@@ -11,12 +11,6 @@ var config = {
     map5: { map: 'map5-1.json', start: [0, 0], goal: [3, 4] }
 }
 
-var images = {
-    equations: {file: '', width: 950, height: 482}, 
-    distance: {file: '', width: 706, height: 210}, 
-    deltaX: {file: '', width: 180, height: 108}, 
-    deltaY: {file: '', width: 180, height: 108}
-};
 var curConfig = 'map5';
 var fontRockwellBold;
 var current;
@@ -96,14 +90,13 @@ function keyPressed() {
         slide--;
     }
 
-    if (slide == 2) {
+    if (slide == 1) {
         ed.show();
-        ed.hideOverlays();
     }
-    if (slide == 3) {
+    if (slide == 2) {
         ed.showEquations();
     }
-    if (slide == 4) {
+    if (slide == 3) {
         // move to the last region
         let space = width / 3;
         heuristicShape.moveTo(createVector(space, 0));
@@ -146,16 +139,16 @@ function draw() {
     // draw heuristic grid
     region = 1;
     push();
+    translate(space * region, 200);        
+    heuristicShape.draw();
     if (slide >= 1) {
-        translate(space * region, 200);        
-        heuristicShape.draw();
         ed.draw();
     }
     pop();
 
     translate(space * region, 200);
 
-    if (slide >= 4 && !heuristicShape.moving) {
+    if (slide >= 3 && !heuristicShape.moving) {
         renderers.forEach(renderer => {
             if (renderer instanceof DirectionsRenderer) {
                 if (current.endPos == current.pos) {

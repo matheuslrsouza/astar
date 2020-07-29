@@ -3,6 +3,7 @@ class EuclideanDistance {
     constructor(start, end) {
         this.start = start;
         this.end = end;        
+
         this.diffXStartEnd = this.end.x - this.start.x;
         // p5.Vector.sub(this.start, p5.Vector.sub(this.start, this.end));
         this.visible = false;

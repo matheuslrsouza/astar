@@ -32,6 +32,7 @@ class AStarInteractive {
 
         this.current = cell;
         this.goalCell = undefined;
+        this.sizeOfPath = 0;
     }
 
     expand() {
@@ -68,6 +69,7 @@ class AStarInteractive {
 
         if (this.isGoalHit()) {
             this.goalCell = this.current;
+            this.countSizeOfPath();
         } else {
             actions.forEach((action) => {
                 var x2 = this.current.x + action[0];
@@ -75,7 +77,7 @@ class AStarInteractive {
                 var g2 = 0;
                 if (this.aStarEnabled && !this.h) {
                     // com um valor balanceado se comporta melhor                    
-                    g2 = this.current.g + this.cellSize/3.5;
+                    g2 = this.current.g + this.cellSize/3;
                     //g2 = (this.current.g + 1) / this.maxCost;
                 } else {
                     g2 = this.current.g + 1;
@@ -211,6 +213,20 @@ class AStarInteractive {
             x * this.cellSize + this.cellSize / 2, 
             y * this.cellSize + this.cellSize / 2
         );
+    }
+
+    countSizeOfPath() {
+        let cell = this.goalCell;
+
+        while (cell.previous != undefined) {
+            this.sizeOfPath += 1;
+            cell = cell.previous;
+        }
+    }
+    
+    get numExpandeds() {
+        return this.cells.filter(c => c.expanded == true)
+            .length;
     }
 }
 

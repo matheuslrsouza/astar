@@ -18,13 +18,13 @@ class Current {
         var newHeading = p5.Vector.sub(newPoint, this.pos);
 
         this.vel.mult(0);
-        this.acc = p5.Vector.fromAngle(newHeading.heading(), 5);
+        this.acc = p5.Vector.fromAngle(newHeading.heading(), 40);
         this.moving = true;
     }
 
     draw() {
         // checks if is on place
-        if (this.pos.dist(this.endPos) <= 40 && this.moving) {
+        if (this.pos.dist(this.endPos) <= 50 && this.moving) {
             this.moving = false;
             this.pos = this.endPos;
             this.expandeds.push(this.endPos.copy());
