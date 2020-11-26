@@ -11,7 +11,7 @@ var config = {
     map5: { map: 'map5.json', start: [0, 0], goal: [4, 5] }
 };
 
-var images = {
+var localImages = {
     pseudo: {file: '', width: 1460, height: 1458, path: '../../assets/pseudo-code2.png'}
 };
 
@@ -24,7 +24,7 @@ function preload() {
 
     fontRockwellBold = loadFont('../../assets/fonts/rockwell-bold.ttf');
 
-    images.pseudo.file = loadImage(images.pseudo.path);
+    localImages.pseudo.file = loadImage(localImages.pseudo.path);
 }
 
 var size = 700;
@@ -243,10 +243,10 @@ function _drawPseudoCode() {
     if (slide < 1) return;
 
     let newWidth = 580;
-    let newHeight = (newWidth / images.pseudo.width) * images.pseudo.height;
+    let newHeight = (newWidth / localImages.pseudo.width) * localImages.pseudo.height;
 
     push();
-    image(images.pseudo.file, 760, 150, newWidth, newHeight);    
+    image(localImages.pseudo.file, 760, 150, newWidth, newHeight);    
 
     // draws the debug line
     if (slide >= 3) {

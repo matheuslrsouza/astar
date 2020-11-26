@@ -24,10 +24,9 @@ var config = {
     mapRyu: { map: 'map-ryu.json', start: [10, 69], goal: [55, 27], circleSize: 5, current: {size: 10,stroke: 3}}
 }
 
-var curConfig = 'mapRyu';
+var curConfig = 'map6';
 
 var fontRockwellBold;
-
 
 function preload() {
     loadJSON('../astar/' + config[curConfig].map, (data) => mapGrid = data);
@@ -81,6 +80,7 @@ function setup() {
 
 let startSearch = false;
 function mousePressed() {
+    console.log(startSearch);
     if (!startSearch) {
         stopwatch.start('astar');
         stopwatch.start('nonAStar');
@@ -129,9 +129,9 @@ function _doDraw(astar, current, renderers) {
         }
     }
 
-    if (countAStarFinished < 2) {
-        return;
-    }
+    // if (countAStarFinished < 2) {
+    //     return;
+    // }
         
     _drawTexts(astar);
 

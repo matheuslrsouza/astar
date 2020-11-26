@@ -18,7 +18,7 @@ class Current {
         var newHeading = p5.Vector.sub(newPoint, this.pos);
 
         this.vel.mult(0);
-        this.acc = p5.Vector.fromAngle(newHeading.heading(), 40);
+        this.acc = p5.Vector.fromAngle(newHeading.heading(), 10);
         this.moving = true;
     }
 

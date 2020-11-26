@@ -47,7 +47,9 @@
     <!-- <script src="sketch-00-gps.js"></script> -->
     <!-- <script src="sketch-01.js"></script> -->
     <!-- <script src="sketch-02-roomba.js"></script> -->
-    <script src="sketch-03-astar-auto.js"></script>
+
+    <!-- <script src="sketch-03-astar-auto.js"></script>  -->
+
     <!-- <script src="sketch-04-map.js"></script> -->
     <!-- <script src="sketch-05-grid.js"></script> -->
     <!-- <script src="sketch-06-mapmaker.js"></script> -->
@@ -62,12 +64,41 @@
     
     <!-- <script src="sketch-10-algorithm-02.js"></script> -->
     <!-- <script src="sketch-10-algorithm-03.js"></script> -->
-    <!-- <script src="sketch-10-algorithm-04 .js"></script> -->
+    <!-- <script src="sketch-10-algorithm-04.js"></script> -->
+
     <!-- <script src="sketch-11-astar-01.js"></script> -->
     <!-- <script src="sketch-11-astar-02.js"></script> -->
+
     <!-- <script src="sketch-12-astar-vs-search.js"></script> -->
+
     <!-- <script src="sketch-12-astar-vs-search-auto.js"></script> -->
+
     <!-- <script src="sketch-13-image.js"></script> -->
+
+    <!-- usar esse -->
+    <script>
+        const qs = window.location.search;
+        let params = new URLSearchParams(qs);
+        let src = params.get("script") || 0;
+
+        const tagScript = document.createElement('script');
+        switch (parseInt(src)) {
+            case 1:
+                src = "sketch-11-astar-01.js";
+                break;
+            case 2:
+                src = "sketch-11-astar-02.js";
+                break;
+            case 3:
+                src = "sketch-03-astar-auto.js";
+                break;
+            case 4:
+                src = "sketch-12-astar-vs-search-auto.js";
+                break;
+        }    
+        tagScript.setAttribute('src',src);
+        document.head.appendChild(tagScript);
+    </script>
 
 </body>
 </html>

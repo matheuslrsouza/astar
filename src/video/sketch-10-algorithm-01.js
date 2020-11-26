@@ -17,7 +17,7 @@ var current;
 
 var slide = 0;
 
-var images = {
+var localImages = {
     cost: {file: '', width: 290, height: 258}, 
     g: {file: '', width: 638, height: 470},
     result1: {file: '', width: 338, height: 222}, 
@@ -28,10 +28,10 @@ function preload() {
     loadJSON('../astar/' + config[curConfig].map, (data) => mapGrid = data);    
     fontRockwellBold = loadFont('../../assets/fonts/rockwell-bold.ttf');
 
-    images.cost.file = loadImage('../../assets/cost.png');
-    images.g.file = loadImage('../../assets/g.png');
-    images.result1.file = loadImage('../../assets/result1.png');
-    images.result2.file = loadImage('../../assets/result2.png');
+    localImages.cost.file = loadImage('../../assets/cost.png');
+    localImages.g.file = loadImage('../../assets/g.png');
+    localImages.result1.file = loadImage('../../assets/result1.png');
+    localImages.result2.file = loadImage('../../assets/result2.png');
 }
 
 var size = 700;
@@ -87,7 +87,7 @@ function draw() {
 
         // image cost
         push();
-        image(images.cost.file, 300, -170, images.cost.width, images.cost.height);
+        image(localImages.cost.file, 300, -170, localImages.cost.width, localImages.cost.height);
         pop();
     }
 
@@ -99,7 +99,7 @@ function draw() {
 
         // image g
         push();
-        image(images.g.file, -10, 30, images.g.width, images.g.height);
+        image(localImages.g.file, -10, 30, localImages.g.width, localImages.g.height);
         pop();
     }
 
@@ -107,14 +107,14 @@ function draw() {
     if (slide >= 3) {        
         // result 1
         push();
-        image(images.result1.file, 410, 270, images.result1.width, images.result1.height);
+        image(localImages.result1.file, 410, 270, localImages.result1.width, localImages.result1.height);
         pop();        
     }
 
     if (slide >= 4) {
         // result 1
         push();
-        image(images.result2.file, 590, 230, images.result2.width, images.result2.height);
+        image(localImages.result2.file, 590, 230, localImages.result2.width, localImages.result2.height);
         pop();        
     }
 
